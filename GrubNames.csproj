@@ -1,11 +1,11 @@
 ﻿<!-- Credit to SFGrenade https://github.com/SFGrenade -->
 <Project Sdk="Microsoft.NET.Sdk">
 	<PropertyGroup>
-		<RootNamespace>RemoveHauntedFoes</RootNamespace>
-		<AssemblyName>RemoveHauntedFoes</AssemblyName>
+		<RootNamespace>GrubNames</RootNamespace>
+		<AssemblyName>GrubNames</AssemblyName>
 		<TargetFramework>net472</TargetFramework>
-		<AssemblyTitle>RemoveHauntedFoes</AssemblyTitle>
-		<Product>RemoveHauntedFoes</Product>
+		<AssemblyTitle>GrubNames</AssemblyTitle>
+		<Product>GrubNames</Product>
 		<Description>A Hollow Knight mod.</Description>
 		<Copyright>Copyright © </Copyright>
 		<AssemblyVersion>1.0.0.0</AssemblyVersion>
@@ -46,23 +46,18 @@
 		<MakeDir Directories="$(ExportDir)" />
 		<MakeDir Directories="$(ExportDir)/zip" />
 		<Copy SourceFiles="$(TargetPath)" DestinationFolder="$(ExportDir)" />
-		<Copy Condition="'$(DocumentationFile)' != ''" SourceFiles="WavLib.dll;ReadMe.md;$(TargetPath);$(TargetDir)/$(TargetName).pdb;$(TargetDir)/$(TargetName).xml" DestinationFolder="$(ExportDir)/zip" />
-		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="WavLib.dll;ReadMe.md;$(TargetPath);$(TargetDir)/$(TargetName).pdbl" DestinationFolder="$(ExportDir)/zip/" />
+		<Copy Condition="'$(DocumentationFile)' != ''" SourceFiles="$(TargetPath);$(TargetDir)/$(TargetName).pdb;$(TargetDir)/$(TargetName).xml" DestinationFolder="$(ExportDir)/zip" />
+		<Copy Condition="'$(DocumentationFile)' == ''" SourceFiles="$(TargetPath);$(TargetDir)/$(TargetName).pdbl" DestinationFolder="$(ExportDir)/zip/" />
 		<ZipDirectory SourceDirectory="$(ExportDir)/zip" DestinationFile="$(ExportDir)/$(TargetName).zip" />
 		<RemoveDir Directories="$(ExportDir)/zip" />
 		<PropertyGroup>
 			<OutputFileString>$(AssemblyVersion)</OutputFileString>
 		</PropertyGroup>
-		<WriteLinesToFile File="Version.txt" Lines="$(OutputFileString)" Overwrite="true" Encoding="UTF-8" />
 	</Target>
-	<ItemGroup>
-		<ResItemsMusic Include="Resources/Music/*.wav" />
-	</ItemGroup>
 	<Target Condition="'$(Configuration)' == 'Debug'" Name="CopyMod" AfterTargets="PostBuildEvent">
 		<RemoveDir Condition="Exists('$(ModsPath)/$(TargetName)')" Directories="$(ModsPath)/$(TargetName)" />
 		<MakeDir Directories="$(ModsPath)/$(TargetName)" />
-		<Copy SourceFiles="WavLib.dll;$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ModsPath)/$(TargetName)" />
-		<Copy SourceFiles="@(ResItemsMusic)" DestinationFolder="$(ModsPath)/$(TargetName)/Resources/Music" />
+		<Copy SourceFiles="$(TargetPath);$(TargetDir)/$(TargetName).pdb" DestinationFolder="$(ModsPath)/$(TargetName)" />
 	</Target>
 	<!-- Uncomment this if you have the game installed on Steam, Steam is in your PATH environment variable, and you want to run the game upon build. -->
 	<!-- Exec Command="steam steam://rungameid/367520" / -->
@@ -76,8 +71,14 @@
 		<Reference Include="GalaxyCSharp">
 			<HintPath>$(LocalRefs)/GalaxyCSharp.dll</HintPath>
 		</Reference>
+		<Reference Include="ItemChanger">
+		  <HintPath>..\..\..\Users\charl\Documents\Hollow Knight (Modded)\Hollow Knight_Data\Managed\Mods\ItemChanger\ItemChanger.dll</HintPath>
+		</Reference>
 		<Reference Include="MagicUI">
 			<HintPath>MagicUI.dll</HintPath>
+		</Reference>
+		<Reference Include="MenuChanger">
+		  <HintPath>..\..\..\Users\charl\Documents\Hollow Knight (Modded)\Hollow Knight_Data\Managed\Mods\MenuChanger\MenuChanger.dll</HintPath>
 		</Reference>
 		<Reference Include="MMHOOK_Assembly-CSharp">
 			<HintPath>$(LocalRefs)/MMHOOK_Assembly-CSharp.dll</HintPath>
@@ -105,6 +106,12 @@
 		</Reference>
 		<Reference Include="PlayMaker">
 			<HintPath>$(LocalRefs)/PlayMaker.dll</HintPath>
+		</Reference>
+		<Reference Include="RandomizerCore">
+		  <HintPath>..\..\..\Users\charl\Documents\Hollow Knight (Modded)\Hollow Knight_Data\Managed\Mods\RandomizerCore\RandomizerCore.dll</HintPath>
+		</Reference>
+		<Reference Include="RandomizerMod">
+		  <HintPath>..\..\..\Users\charl\Documents\Hollow Knight (Modded)\Hollow Knight_Data\Managed\Mods\Randomizer 4\RandomizerMod.dll</HintPath>
 		</Reference>
 		<Reference Include="Satchel">
 			<HintPath>Satchel.dll</HintPath>
@@ -350,8 +357,5 @@
 	</ItemGroup>
 	<ItemGroup>
 		<PackageReference Include="WavLib" Version="1.0.1" />
-	</ItemGroup>
-	<ItemGroup>
-	  <Folder Include="Resources\" />
 	</ItemGroup>
 </Project>
