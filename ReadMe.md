@@ -1,3 +1,3 @@
-# GrubNames
+# Remove Haunted Foes
 
-ItemChanger/Randomizer add-on that renames Grubs to Skurry's Grub names
+This mod has been replaced by [BetterGodhomeMusic](https://github.com/CharlesGameDev/BetterGodhomeMusic)
